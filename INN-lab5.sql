@@ -6,7 +6,7 @@
 
 * Creation Date : 05-11-2017
 
-* Last Modified : Sun 05 Nov 2017 07:20:30 PM STD
+* Last Modified : Mon 06 Nov 2017 02:50:18 PM STD
 
 * Created By :  Jordan Castillo
 
@@ -14,23 +14,17 @@
 _._._._._._._._._._._._._._._._._._._._._.*/
 use inn
 -- Q1
-SELECT rm.RoomName, rm.RoomCode, DATEDIFF(rs.CheckOut, rs.CheckIn) AS daysBooked
-FROM rooms rm, reservations rs
-WHERE (rs.Room = rm.RoomCode)
-AND ((DAYOFYEAR(rs.CheckIn) <= DAYOFYEAR("2010-05-15") AND DAYOFYEAR(rs.CheckOut) >= DAYOFYEAR("2010-0
-5-15"))
-OR (DAYOFYEAR(rs.CheckIn) <= DAYOFYEAR("2010-08-18") AND DAYOFYEAR(rs.CheckOut) >= DAYOFYEAR("2010-08-1
-8"))
-OR (DAYOFYEAR(rs.CheckIn) <= DAYOFYEAR("2010-12-12") AND DAYOFYEAR(rs.CheckOut) >= DAYOFYEAR("2010-12-1
-2")))
-GROUP BY rs.Room
-HAVING (DAYOFYEAR(rs.CheckIn) <= DAYOFYEAR("2010-05-15") AND DAYOFYEAR(rs.CheckOut) >= DAYOFYEAR("2010-0
-5-15"))
-AND (DAYOFYEAR(rs.CheckIn) <= DAYOFYEAR("2010-08-18") AND DAYOFYEAR(rs.CheckOut) >= DAYOFYEAR("2010-08-1
-8"))
-AND (DAYOFYEAR(rs.CheckIn) <= DAYOFYEAR("2010-12-12") AND DAYOFYEAR(rs.CheckOut) >= DAYOFYEAR("2010-12-1
-2"))
-AND (COUNT(YEAR(rs.CheckOut) = 2010) >= 1);
+SELECT DISTINCT rm.RoomName, rm.RoomCode
+FROM reservations rs1
+	JOIN rooms rm
+		ON (rm.RoomCode = rs1.Room)
+	JOIN reservations rs2
+		ON (rs2.Room = rs1.Room)
+	JOIN reservations rs3
+		ON (rs3.Room = rs1.Room)
+WHERE (DAYOFYEAR(rs1.CheckIn) <= DAYOFYEAR("2010-05-15") AND DAYOFYEAR(rs1.CheckOut) >= DAYOFYEAR("2010-05-15"))
+AND (DAYOFYEAR(rs2.CheckIn) <= DAYOFYEAR("2010-08-18") AND DAYOFYEAR(rs2.CheckOut) >= DAYOFYEAR("2010-08-18"))
+AND (DAYOFYEAR(rs3.CheckIn) <= DAYOFYEAR("2010-12-12") AND DAYOFYEAR(rs3.CheckOut) >= DAYOFYEAR("2010-12-12"));
 
 -- Q2
 SELECT DISTINCT rs1.FirstName, rs1.LastName
@@ -60,7 +54,7 @@ AND (rs.CheckIn BETWEEN "2010-05-01" AND "2010-08-31")
 AND (rs.CheckOut BETWEEN "2010-05-01" AND "2010-08-30");
 
 -- Q5
-SELECT DISTINCT DATEDIFF(rs.CheckOut, rs.CheckIn)
+SELECT COUNT(DISTINCT DATEDIFF(rs.CheckOut, rs.CheckIn)) AS numDifferentDays
 FROM reservations rs, rooms rm
 WHERE (rs.Room = rm.RoomCode)
 AND (rm.RoomName = "Interim but salutary")
