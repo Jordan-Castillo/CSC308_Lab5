@@ -6,7 +6,7 @@
 
 * Creation Date : 06-11-2017
 
-* Last Modified : Mon 06 Nov 2017 02:51:33 PM STD
+* Last Modified : Mon 06 Nov 2017 03:04:08 PM STD
 
 * Created By :  Jordan Castillo
 
@@ -59,9 +59,9 @@ WHERE (bd.FirsName = "Anne-Marit")
 AND (bd.Id = it.Bandmate);
 
 -- Q5
-SELECT it.Instrument
-FROM Band bd, Instruments it
-WHERE 
+--SELECT it.Instrument
+--FROM Band bd, Instruments it
+--WHERE 
 
 -- Q6
 

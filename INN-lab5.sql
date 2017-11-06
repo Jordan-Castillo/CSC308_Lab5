@@ -6,7 +6,7 @@
 
 * Creation Date : 05-11-2017
 
-* Last Modified : Mon 06 Nov 2017 02:50:18 PM STD
+* Last Modified : Mon 06 Nov 2017 03:02:32 PM STD
 
 * Created By :  Jordan Castillo
 
@@ -35,7 +35,9 @@ FROM rooms rm
 	JOIN reservations rs2
 		ON (rs2.FirstName = "HERBERT" AND rs2.LastName = "FRYDAY")
 WHERE (rs1.CheckIn BETWEEN rs2.CheckIn AND rs2.CheckOut)
-OR (rs1.CheckOut BETWEEN rs2.CheckIn AND rs2.CheckOut)
+	OR (rs1.CheckOut BETWEEN rs2.CheckIn AND rs2.CheckOut)
+	OR (rs2.CheckIn BETWEEN rs1.CheckIn AND rs1.CheckOut)
+ 	OR (rs2.CheckOut BETWEEN rs1.CheckIn AND rs1.CheckOut:)
 ORDER BY rs1.LastName;
 
 -- Q3
