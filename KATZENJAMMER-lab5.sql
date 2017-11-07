@@ -6,7 +6,7 @@
 
 * Creation Date : 06-11-2017
 
-* Last Modified : Mon 06 Nov 2017 07:30:10 PM STD
+* Last Modified : Mon 06 Nov 2017 07:34:38 PM STD
 
 * Created By :  Jordan Castillo
 
@@ -69,7 +69,7 @@ WHERE (bd1.Id = it.Bandmate)
 	AND (bd2.Id = it2.Bandmate);
 
 -- Q6
-SELECT COUNT(DISTINCT *)
+SELECT COUNT(DISTINCT pf.Song)
 FROM Performance pf
 	JOIN Instruments it
 		ON (pf.Song = it.Song)
